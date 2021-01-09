@@ -3,11 +3,11 @@ import sys
 import binascii
 from util import to_hex, crc_modbus, from_hex
 from packets import packetFactory
-from planar_interface import capture, UnknownPacketError
+from planar_interface import capture_serial, UnknownPacketError
 
 
 def main():
-    serial_heater = serial.Serial('/dev/ttyUSB1', 2400)
+    serial_heater = serial.Serial('/dev/ttyUSB1', 2400, timeout=1.0)
 
     while True:
         try:
@@ -23,7 +23,7 @@ def main():
             continue
 
         try:
-            packet = capture(serial_heater)
+            packet = capture_serial(serial_heater)
             print("Received:\t" + str(packet))
         except UnknownPacketError as e:
             print("Received unknown packet (crc ok): ", to_hex(e.get_data()))

@@ -12,7 +12,9 @@ class SettingsPacket(DataPacket):
         super().__init__(payload)
 
     def __str__(self):
-        return "Settings: (" + \
+        if len(self.payload) == 0:
+            return "Settings Request"
+        return "Settings: [" + to_hex(self.payload) + "] (" + \
             "?: " + to_hex(self.payload[0:2]) + \
             ", By " + self.get_temp_source_str() + \
             ", Setpoint: " + str(int(self.payload[3])) + "°C" + \

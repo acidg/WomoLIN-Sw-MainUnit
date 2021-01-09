@@ -11,16 +11,16 @@ class StatusPacket(DataPacket):
         super().__init__(payload)
 
     def __str__(self):
-        return "Status: (" + \
+        if len(self.payload) == 0:
+            return "Status Request"
+        return "Status Response: [" + to_hex(self.payload) + "] (" + \
             "?: " + to_hex(self.payload[0]) + \
-            ((", Error code: " + self.get_error()) if self.payload[1] == 0x01 else "") + \
+            ",?: " + to_hex(self.payload[1]) + \
+            ", Error code: " + to_hex(self.payload[2]) + \
             ", Temp: " + str(int(self.payload[3])) + "°C" + \
             ", ?: " + to_hex(self.payload[4:6]) + \
             ", Voltage: " + str(int(self.payload[6])/10) + "V" + \
             ", ?: " + to_hex(self.payload[7:]) + ")"
-
-    def get_error(self):
-        return str(int(self.payload[2]))
 
     @staticmethod
     def matches(address):
