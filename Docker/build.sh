@@ -5,5 +5,4 @@ setAppFromShellName $1
 
 echo "Buildname: ${APP}"
 
-docker build --tag womo$APP --file Dockerfile_$APP . 
-
+sudo docker build --tag womo$APP --file Dockerfile_$APP .
