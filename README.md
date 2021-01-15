@@ -28,7 +28,7 @@ We are using `cmake` to build the firmware binaries. You can use the docker scri
 `$ cd path/to/WomoLIN-SW-MainUnit/`  
 `$ mkdir -p build`  
 `$ cd build`  
-`$ cmake ../`  
+`$ cmake -DCMAKE_TOOLCHAIN_FILE=../arm-gcc.cmake -DCMAKE_BUILD_TYPE=Debug ../`  
 `$ make`
 
 ## Deploying on Hardware
